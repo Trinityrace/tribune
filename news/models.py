@@ -12,6 +12,7 @@ class Editor(models.Model):
         return self.first_name
     class Meta:
         ordering = ['first_name']
+
     def save_editor(self):
         self.save()
 
@@ -28,13 +29,15 @@ class Article(models.Model):
     tags = models.ManyToManyField(tags)
     pub_date = models.DateTimeField(auto_now_add=True)
 
-@classmethod
-def todays_news(cls):
-    today = dt.date.today()
-    news = cls.objects.filter(pub_date__date = today)
-    return news
+    def __str__(self):
+        return self.title
+    @classmethod
+    def todays_news(cls):
+        today = dt.date.today()
+        news = cls.objects.filter(pub_date__date = today)
+        return news
 
-@classmethod
-def days_news(cls,date):
-    news = cls.objects.filter(pub_date__date = date)
-    return news
+    @classmethod
+    def days_news(cls,date):
+        news = cls.objects.filter(pub_date__date = date)
+        return news
