@@ -22,9 +22,4 @@ class Article(models.Model):
     post = models.TextField()
     editor = models.ForeignKey(Editor)
     tags = models.ManyToManyField(tags)
-
-    # try:
-    #     editor = Editor.objects.get(email = 'example@gmail.com')
-    #     print('Editor found')
-    # except DoesNotExist:
-    #     print('Editor was not found')
+    pub_date = models.DateTimeField(auto_now_add=True)
