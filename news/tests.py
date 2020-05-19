@@ -39,6 +39,10 @@ class ArticleTestClass(TestCase):
         tags.objects.all().delete()
         Article.objects.all().delete()
 
+    def test_get_news_today(self):
+        today_news = Article.todays_news()
+        self.assertTrue(len(today_news)>0)
+
 #  1. Test for deleting a model object.
 
 # 2. Test for displaying all model objects saved.
