@@ -1,27 +1,32 @@
 from django.http  import HttpResponse, Http404
 from django.shortcuts import render, redirect
 import datetime as dt
+from .models import Article
 
 # Create your views here.
 def welcome(request):
     #return HttpResponse('Welcome to the Moringa Tribune')
     return render(request, 'news/welcome.html')
 
-
-def news_of_day(request):
+def news_today(request):
     date = dt.date.today()
+    news = Article.todays_news()
+    return render(request, 'all-news/today-news.html', {"date": date,"news":news})
 
-    # #Function to convert date object to find exact day
-    # day = convert_dates(date)
-    # html = f'''
-    #     <html>
-    #         <body>
-    #             <h1>News For {day} {date.day}-{date.month}-{date.year}</h1>
-    #         </body>
-    #     </html>
-    #         '''
-    # return HttpResponse(html)
-    return render(request, 'all-news/today-news.html', {"date": date,})
+# def news_of_day(request):
+#     date = dt.date.today()
+
+#     # #Function to convert date object to find exact day
+#     # day = convert_dates(date)
+#     # html = f'''
+#     #     <html>
+#     #         <body>
+#     #             <h1>News For {day} {date.day}-{date.month}-{date.year}</h1>
+#     #         </body>
+#     #     </html>
+#     #         '''
+#     # return HttpResponse(html)
+#     return render(request, 'all-news/today-news.html', {"date": date,})
 
 def convert_dates(dates):
 
@@ -46,9 +51,11 @@ def past_days_news(request,past_date):
         assert False
         
     if date == dt.date.today():
-        return redirect(news_of_day)
+        return redirect(news_today)
 
-    return render(request, 'all-news/past-news.html', {"date": date})
+    news = Article.days_news(date)
+
+    return render(request, 'all-news/past-news.html', {"date": date, "news":news})
     # day = convert_dates(date)
     # html = f'''
     #     <html>
