@@ -21,6 +21,7 @@ class Article(models.Model):
     title = models.CharField(max_length =60)
     post = models.TextField()
     editor = models.ForeignKey(Editor)
+    tags = models.ManyToManyField(tags)
 
     # try:
     #     editor = Editor.objects.get(email = 'example@gmail.com')
