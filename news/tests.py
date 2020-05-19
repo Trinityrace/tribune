@@ -17,3 +17,10 @@ class EditorTestClass(TestCase):
         self.james.save_editor()
         editors = Editor.objects.all()
         self.assertTrue(len(editors) > 0)
+
+
+#  1. Test for deleting a model object.
+
+# 2. Test for displaying all model objects saved.
+
+# 3. Test for updating single object properties.
